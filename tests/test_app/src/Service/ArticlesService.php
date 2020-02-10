@@ -18,6 +18,13 @@ namespace App\Service;
 use Burzum\Cake\Service\ServicePaginatorTrait;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * Class ArticlesService
+ *
+ * @property \App\Model\Table\ArticlesTable $Articles
+ *
+ * @package App\Service
+ */
 class ArticlesService
 {
     use ModelAwareTrait;
@@ -44,7 +51,9 @@ class ArticlesService
     /**
      * List articles
      *
-     * @return \Cake\Datasource\ResultSetInterface|array
+     * @param $request
+     *
+     * @return \Cake\Datasource\ResultSetInterface
      */
     public function listing($request)
     {

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,7 +13,6 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
 namespace Burzum\Cake\Service;
 
@@ -47,10 +48,12 @@ trait ServiceAwareTrait
      * @param array $constructorArgs Constructor Args
      * @param bool $assignProperty Assigns the service to a class property of the same name as  the service
      * @return object
+     * @psalm-return TObject
+     * @throws \Exception
      */
     public function loadService($service, array $constructorArgs = [], $assignProperty = true)
     {
-        list(, $name) = pluginSplit($service);
+        [, $name] = pluginSplit($service);
 
         if (strpos($name, '/') !== false) {
             $name = substr($name, strrpos($name, '/') + 1);

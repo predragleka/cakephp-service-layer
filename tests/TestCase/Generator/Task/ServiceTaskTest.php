@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,13 +13,17 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
 namespace Burzum\Cake\Test\TestCase\Generator\Task;
 
 use Burzum\Cake\Generator\Task\ServiceTask;
 use Cake\TestSuite\TestCase;
 
+/**
+ * Class ServiceTaskTest
+ *
+ * @package Burzum\Cake\Test\TestCase\Generator\Task
+ */
 class ServiceTaskTest extends TestCase
 {
     /**
@@ -28,7 +34,7 @@ class ServiceTaskTest extends TestCase
     public function testCollect()
     {
         $task = new ServiceTask();
-        
+
         $result = $task->collect();
 
         $this->assertCount(1, $result);

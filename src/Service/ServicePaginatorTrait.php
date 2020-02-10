@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,7 +13,6 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
 namespace Burzum\Cake\Service;
 
@@ -43,6 +44,7 @@ trait ServicePaginatorTrait
      * Set paginator instance.
      *
      * @param \Cake\Datasource\PaginatorInterface $paginator Paginator instance.
+     *
      * @return self
      */
     public function setPaginator(PaginatorInterface $paginator)
@@ -73,6 +75,7 @@ trait ServicePaginatorTrait
      * @param \Cake\Datasource\RepositoryInterface|\Cake\Datasource\QueryInterface $object The table or query to paginate.
      * @param array $params Request params
      * @param array $settings The settings/configuration used for pagination.
+     *
      * @return \Cake\Datasource\ResultSetInterface Query results
      */
     public function paginate($object, array $params = [], array $settings = [])
@@ -109,13 +112,14 @@ trait ServicePaginatorTrait
      * Adds the paginator params to the request objects params
      *
      * @param \Cake\Http\ServerRequest $request Request object
+     *
      * @return void
      */
     public function addPagingParamToRequest(ServerRequest &$request)
     {
-        $request->addParams([
-            'paging' => $this->getPaginator()->getPagingParams()
-                + (array)$request->getParam('paging')
-        ]);
+        $request = $request->withParam(
+            'paging',
+            $this->getPaginator()->getPagingParams() + (array)$request->getParam('paging')
+        );
     }
 }

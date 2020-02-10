@@ -10,7 +10,7 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Burzum\Cake\Generator\Task;
 
@@ -52,7 +52,7 @@ class ServiceTask implements TaskInterface
     /**
      * @return \IdeHelper\Generator\Directive\BaseDirective[]
      */
-    public function collect()
+    public function collect() : array
     {
         $map = [];
 
@@ -104,6 +104,7 @@ class ServiceTask implements TaskInterface
      * @param string $path Path
      * @param string|null $subFolder Sub folder
      * @param string|null $plugin Plugin
+     *
      * @return string[]
      */
     protected function addServices(array $services, $path, $subFolder = null, $plugin = null)

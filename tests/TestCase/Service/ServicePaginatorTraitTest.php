@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,9 +13,8 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
-namespace Burzum\Cake\Service;
+namespace Burzum\Cake\Test\TestCase\Service;
 
 use App\Service\ArticlesService;
 use Cake\Http\ServerRequest;
@@ -39,7 +40,7 @@ class ServicePaginatorTraitTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }

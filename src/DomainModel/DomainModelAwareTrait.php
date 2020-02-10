@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,7 +13,6 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
 namespace Burzum\Cake\DomainModel;
 
@@ -44,9 +45,11 @@ trait DomainModelAwareTrait
      * @param string $model Domain Model Name
      * @param array $constructorArgs Constructor Args
      * @param bool $assignProperty Assigns the domain model to a class property of the same name
+     *
      * @return \stdClass
+     * @throws \Exception
      */
-    public function loadService($model, array $constructorArgs = [], $assignProperty = false)
+    public function loadService(string $model, array $constructorArgs = [], bool $assignProperty = false)
     {
         $domainModel = $this->getDomainModelLocator()->load($model, $constructorArgs);
 
@@ -54,7 +57,7 @@ trait DomainModelAwareTrait
             return $domainModel;
         }
 
-        list(, $name) = pluginSplit($model);
+        [, $name] = pluginSplit($model);
 
         if (isset($this->{$name})) {
             trigger_error(__CLASS__ . '::$%s is already in use.', E_USER_WARNING);
@@ -70,7 +73,7 @@ trait DomainModelAwareTrait
      *
      * @return \Cake\Core\ObjectRegistry
      */
-    public function getDomainModelLocator()
+    public function getDomainModelLocator() : ObjectRegistry
     {
         if (empty($this->serviceLocator)) {
             $class = $this->defaultDomainModelLocator;
@@ -84,9 +87,10 @@ trait DomainModelAwareTrait
      * Sets the Domain model locator
      *
      * @param \Cake\Core\ObjectRegistry $locator Locator
+     *
      * @return void
      */
-    public function setDomainModelLocator(ObjectRegistry $locator)
+    public function setDomainModelLocator(ObjectRegistry $locator) : void
     {
         $this->domainModelLocator = $locator;
     }

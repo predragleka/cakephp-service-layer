@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Burzum\Cake\Annotator\ClassAnnotatorTask;
 
@@ -16,9 +16,10 @@ class ServiceAwareClassAnnotatorTask extends AbstractClassAnnotatorTask implemen
     /**
      * @param string $path Path
      * @param string $content Content
+     *
      * @return bool
      */
-    public function shouldRun($path, $content)
+    public function shouldRun(string $path, string $content) : bool
     {
         if (!preg_match('#\buse ServiceAwareTrait\b#', $content)) {
             return false;
@@ -29,15 +30,16 @@ class ServiceAwareClassAnnotatorTask extends AbstractClassAnnotatorTask implemen
 
     /**
      * @param string $path Path
+     *
      * @return bool
      */
-    public function annotate($path)
+    public function annotate(string $path) : bool
     {
         $services = $this->_getUsedServices($this->content);
 
         $annotations = $this->_getServiceAnnotations($services);
 
-        return $this->_annotate($path, $this->content, $annotations);
+        return $this->annotateContent($path, $this->content, $annotations);
     }
 
     /**
@@ -45,9 +47,9 @@ class ServiceAwareClassAnnotatorTask extends AbstractClassAnnotatorTask implemen
      *
      * @return array
      */
-    protected function _getUsedServices($content)
+    protected function _getUsedServices(string $content) : array
     {
-        preg_match_all('/\$this-\>loadService\(\'([a-z.\\/]+)\'/i', $content, $matches);
+        preg_match_all('/\$this->loadService\(\'([a-z.\\/]+)\'/i', $content, $matches);
         if (empty($matches[1])) {
             return [];
         }
@@ -59,9 +61,10 @@ class ServiceAwareClassAnnotatorTask extends AbstractClassAnnotatorTask implemen
 
     /**
      * @param array $usedServices Used services
+     *
      * @return \IdeHelper\Annotation\AbstractAnnotation[]
      */
-    protected function _getServiceAnnotations($usedServices)
+    protected function _getServiceAnnotations(array $usedServices) : array
     {
         $annotations = [];
 
@@ -70,7 +73,7 @@ class ServiceAwareClassAnnotatorTask extends AbstractClassAnnotatorTask implemen
             if (!$className) {
                 continue;
             }
-            list(, $name) = pluginSplit($usedService);
+            [, $name] = pluginSplit($usedService);
 
             if (strpos($name, '/') !== false) {
                 $name = substr($name, strrpos($name, '/') + 1);

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,10 +13,14 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
 namespace App\Service;
 
+/**
+ * Class TestService
+ *
+ * @package App\Service
+ */
 class TestService
 {
 }

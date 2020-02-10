@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,10 +13,10 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
-namespace Burzum\Cake\Service;
+namespace Burzum\Cake\Test\TestCase\Service;
 
+use Burzum\Cake\Service\PaginationService;
 use Cake\Http\ServerRequest;
 use Cake\ORM\ResultSet;
 use Cake\ORM\TableRegistry;
@@ -71,7 +73,7 @@ class PaginationServiceTest extends TestCase
             ],
             false
         ];
-        $this->assertInternalType('array', $params);
+        $this->assertIsArray($params);
         $this->assertEquals($expected, $params);
         $this->assertInstanceOf(ResultSet::class, $result);
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,9 +13,8 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
-namespace Burzum\Cake\Service;
+namespace Burzum\Cake\Test\TestCase\DomainModel;
 
 use App\DomainModel\Article;
 use Burzum\Cake\DomainModel\DomainModelLocator;
@@ -28,6 +29,7 @@ class DomainModelLocatorTest extends TestCase
      * testLocate
      *
      * @return void
+     * @throws \Exception
      */
     public function testLocate()
     {
@@ -39,12 +41,13 @@ class DomainModelLocatorTest extends TestCase
     /**
      * testLocateClassNotFound
      *
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Domain Model class `DoesNotExist` not found.
      * @return void
+     * @throws \Exception
      */
     public function testLocateClassNotFound()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Domain Model class `DoesNotExist` not found.');
         $locator = new DomainModelLocator();
         $locator->load('DoesNotExist');
     }

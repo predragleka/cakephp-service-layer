@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,7 +13,6 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
 namespace Burzum\Cake\Service;
 
@@ -32,7 +33,7 @@ class ServiceLocator extends ObjectRegistry
      * @param string $class The class to resolve.
      * @return string|null The resolved name or null for failure.
      */
-    protected function _resolveClassName($class)
+    protected function _resolveClassName(string $class): ?string
     {
         return App::className($class, 'Service', 'Service') ?: null;
     }
@@ -45,7 +46,7 @@ class ServiceLocator extends ObjectRegistry
      * @return void
      * @throws \Exception
      */
-    protected function _throwMissingClassError($class, $plugin)
+    protected function _throwMissingClassError(string $class, ?string $plugin): void
     {
         if (!empty($plugin)) {
             $message = sprintf(

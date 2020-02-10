@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * Copyright (c) Florian Krämer
  *
@@ -11,12 +13,12 @@
  * @since         1.0.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
 
-namespace Burzum\Cake\Service;
+namespace Burzum\Cake\Test\TestCase\Service;
 
 use App\Service\Sub\Folder\NestedService;
 use App\Service\TestService;
+use Burzum\Cake\Service\ServiceLocator;
 use Cake\TestSuite\TestCase;
 
 /**
@@ -28,6 +30,7 @@ class ServiceLocatorTest extends TestCase
      * testLocate
      *
      * @return void
+     * @throws \Exception
      */
     public function testLocate()
     {
@@ -40,10 +43,12 @@ class ServiceLocatorTest extends TestCase
      * testLocate multiple
      *
      * @return void
+     * @throws \Exception
      */
     public function testLocateMultiple()
     {
         $locator = new ServiceLocator();
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $service = $locator->load('Test');
         $service = $locator->load('Test');
 
@@ -54,6 +59,7 @@ class ServiceLocatorTest extends TestCase
      * testLocate
      *
      * @return void
+     * @throws \Exception
      */
     public function testLocateNested()
     {
@@ -65,12 +71,13 @@ class ServiceLocatorTest extends TestCase
     /**
      * testLocateClassNotFound
      *
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Service class `DoesNotExist` not found.
      * @return void
+     * @throws \Exception
      */
     public function testLocateClassNotFound()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Service class `DoesNotExist` not found.');
         $locator = new ServiceLocator();
         $locator->load('DoesNotExist');
     }
@@ -79,6 +86,7 @@ class ServiceLocatorTest extends TestCase
      * testPassingClassName
      *
      * @return void
+     * @throws \Exception
      */
     public function testPassingClassName()
     {
