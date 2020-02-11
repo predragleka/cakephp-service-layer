@@ -42,9 +42,18 @@ class PaginationService
     {
         $this->request = $request;
 
-        $_this = $this;
-        $this->getEventManager()->on('Service.afterPaginate', function () use ($_this) {
-            $_this->addPagingParamToRequest($_this->request);
+        $this->getEventManager()->on('Service.afterPaginate', function () {
+            $this->request = $this->addPagingAttrToRequest($this->request);
         });
+    }
+
+    /**
+     * Returns request with 'paging' attribute added
+     *
+     * @return \Cake\Http\ServerRequest
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 }

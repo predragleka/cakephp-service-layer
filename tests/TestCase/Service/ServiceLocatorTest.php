@@ -94,7 +94,8 @@ class ServiceLocatorTest extends TestCase
         $locator->load('Existing', [
             'className' => TestService::class
         ]);
-        $this->assertNull($locator->get('Test'));
+        $this->expectException('RuntimeException');
+        $locator->get('Test');
         $this->assertInstanceOf(TestService::class, $locator->get('Existing'));
     }
 }

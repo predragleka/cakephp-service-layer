@@ -59,7 +59,7 @@ class ArticlesService
     {
         $query = $this->Articles->find();
         $result = $this->paginate($query);
-        $this->addPagingParamToRequest($request);
+        $this->addPagingAttrToRequest($request);
 
         return $result;
     }

@@ -57,7 +57,7 @@ trait ServicePaginatorTrait
     /**
      * Get paginator instance.
      *
-     * @return \Cake\Datasource\Paginator
+     * @return \Cake\Datasource\PaginatorInterface
      */
     public function getPaginator()
     {
@@ -113,13 +113,13 @@ trait ServicePaginatorTrait
      *
      * @param \Cake\Http\ServerRequest $request Request object
      *
-     * @return void
+     * @return \Cake\Http\ServerRequest
      */
-    public function addPagingParamToRequest(ServerRequest &$request)
+    public function addPagingAttrToRequest(ServerRequest $request)
     {
-        $request = $request->withParam(
+        return $request->withAttribute(
             'paging',
-            $this->getPaginator()->getPagingParams() + (array)$request->getParam('paging')
+            $this->getPaginator()->getPagingParams() + (array)$request->getAttribute('paging', [])
         );
     }
 }
