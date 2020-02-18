@@ -75,13 +75,15 @@ class ServiceLocator extends ObjectRegistry
      * @param array $config The Configuration settings for construction
      * @return object
      */
-    protected function _create($class, $alias, $config)
+    protected function _create($class, string $alias, array $config)
     {
         if (empty($config)) {
             return new $class();
+        } elseif (isset($config['className'])) {
+            unset($config['className']);
         }
 
-        $args = array_values((array)$config);
+        $args = array_values($config);
 
         return new $class(...$args);
     }
